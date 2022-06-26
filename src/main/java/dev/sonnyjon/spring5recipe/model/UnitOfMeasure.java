@@ -1,19 +1,15 @@
 package dev.sonnyjon.spring5recipe.model;
 
-import lombok.*;
-
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by Sonny on 5/31/2022.
  */
 @Getter
 @Setter
-@Entity
 public class UnitOfMeasure
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String description;
 }

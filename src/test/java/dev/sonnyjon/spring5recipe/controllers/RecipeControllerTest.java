@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,9 +51,9 @@ class RecipeControllerTest
     void testGetRecipe() throws Exception
     {
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
 
-        when(service.findById(anyLong())).thenReturn(recipe);
+        when(service.findById(anyString())).thenReturn(recipe);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
@@ -65,23 +64,11 @@ class RecipeControllerTest
     @Test
     void testGetRecipeNotFound() throws Exception
     {
-        when(service.findById(anyLong())).thenThrow(NotFoundException.class);
+        when(service.findById(anyString())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
                 .andExpect(view().name("404error"));
-    }
-
-    /**************************************************************************
-     *  When given a non-numerical given for the recipe id, the system should
-     *  throw a NumberFormatException
-     */
-    @Test
-    void testShowRecipe_NonNumberId_ShouldThrowException() throws Exception
-    {
-        mockMvc.perform(get("/recipe/abc/show"))
-                .andExpect(status().isBadRequest())
-                .andExpect(view().name("400error"));
     }
 
     @Test
@@ -99,7 +86,7 @@ class RecipeControllerTest
     public void testFormPost_ValidRecipe_ShouldRedirectToShow() throws Exception
     {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2L);
+        command.setId("2");
 
         when(service.saveRecipeCommand(any())).thenReturn(command);
 
@@ -118,7 +105,7 @@ class RecipeControllerTest
     public void testFormPost_InvalidRecipe_ShouldReturnToForm() throws Exception
     {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2L);
+        command.setId("2");
 
         when(service.saveRecipeCommand(any())).thenReturn(command);
 
@@ -137,9 +124,9 @@ class RecipeControllerTest
     public void testGetUpdateView() throws Exception
     {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2L);
+        command.setId("2");
 
-        when(service.findCommandById(anyLong())).thenReturn(command);
+        when(service.findCommandById(anyString())).thenReturn(command);
 
         mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(status().isOk())
@@ -154,6 +141,6 @@ class RecipeControllerTest
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
-        verify(service, times(1)).deleteById(anyLong());
+        verify(service, times(1)).deleteById(anyString());
     }
 }
