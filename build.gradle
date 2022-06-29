@@ -44,7 +44,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'                      // Lombok issues
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 publishing {
@@ -55,9 +55,9 @@ publishing {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'

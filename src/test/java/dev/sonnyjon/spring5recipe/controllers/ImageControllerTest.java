@@ -111,11 +111,11 @@ class ImageControllerTest
         assertEquals(s.getBytes().length, responseBytes.length);
     }
 
-    @Test
-    public void renderImage_NonNumberId_ShouldThrowException() throws Exception
-    {
-        mockMvc.perform(get("/recipe/abc/recipeimage"))
-                .andExpect(status().isBadRequest())
-                .andExpect(view().name("400error"));
-    }
+//    @Test
+//    public void renderImage_NonNumberId_ShouldThrowException() throws Exception
+//    {
+//        mockMvc.perform(get("/recipe/abc/recipeimage"))
+//                .andExpect(status().isBadRequest())
+//                .andExpect(view().name("400error"));
+//    }
 }
